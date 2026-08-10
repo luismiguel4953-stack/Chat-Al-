@@ -1,0 +1,374 @@
+:root {
+    color-scheme: dark;
+    --bg: #06060b;
+    --panel: #09090f;
+    --panel-alt: #0e0e16;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-glow: rgba(79, 70, 229, 0.4);
+    --user: #10b981;
+    --user-dark: #059669;
+    --danger: #f87171;
+    --shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(79, 70, 229, 0.15);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+    --bg: #f1f5f9;
+    --panel: #ffffff;
+    --panel-alt: #f8fafc;
+    --text: #0f172a;
+    --muted: #64748b;
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --primary-glow: rgba(79, 70, 229, 0.25);
+    --user: #059669;
+    --danger: #dc2626;
+    --shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.12), 0 0 20px rgba(79, 70, 229, 0.08);
+    --border: rgba(15, 23, 42, 0.08);
+    --border-hover: rgba(79, 70, 229, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: 
+        radial-gradient(circle at 80% 10%, rgba(79, 70, 229, 0.12), transparent 45%),
+        radial-gradient(circle at 20% 90%, rgba(99, 102, 241, 0.08), transparent 40%),
+        var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background ambient blur effect */
+body::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: rgba(79, 70, 229, 0.15);
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.app-shell {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 780px);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.eyebrow {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 9999px;
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 8px 0 10px;
+    background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] h1 {
+    background: linear-gradient(135deg, #0f172a 30%, #4f46e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+.toolbar,
+.suggestions,
+.composer {
+    display: flex;
+    gap: 12px;
+}
+
+.toolbar {
+    justify-content: space-between;
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+.chat {
+    height: min(52vh, 480px);
+    min-height: 320px;
+    overflow-y: auto;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px;
+    scroll-behavior: smooth;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.message.user {
+    flex-direction: row-reverse;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 12px;
+    flex: 0 0 auto;
+    font-size: 1.1rem;
+    box-shadow: 0 0 12px rgba(79, 70, 229, 0.2);
+}
+
+.message.user .avatar {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.25);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+}
+
+.bubble {
+    max-width: 80%;
+    padding: 14px 18px;
+    border-radius: 18px;
+    border-top-left-radius: 4px;
+    line-height: 1.5;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+}
+
+.message.user .bubble {
+    border-top-left-radius: 18px;
+    border-top-right-radius: 4px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 20px var(--primary-glow);
+}
+
+.bubble strong {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    opacity: 0.85;
+}
+
+.bubble p + p,
+.bubble ul {
+    margin-top: 8px;
+}
+
+.bubble ul {
+    padding-left: 20px;
+}
+
+.status {
+    min-height: 28px;
+    padding: 8px 4px;
+    font-size: 0.85rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    color: #818cf8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.composer {
+    align-items: stretch;
+    margin-top: 4px;
+}
+
+textarea {
+    width: 100%;
+    resize: vertical;
+    max-height: 180px;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--panel-alt);
+    color: var(--text);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary-glow), inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    border: none;
+    border-radius: 16px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 22px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 15px var(--primary-glow);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+button:hover,
+button:focus-visible {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px var(--primary-glow);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+    box-shadow: none;
+}
+
+.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border: 1px solid var(--border);
+    box-shadow: none;
+}
+
+.secondary:hover,
+.secondary:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--border-hover);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.danger {
+    color: var(--danger);
+    border-color: rgba(248, 113, 113, 0.2);
+}
+
+.danger:hover {
+    background: rgba(248, 113, 113, 0.15);
+    border-color: rgba(248, 113, 113, 0.4);
+    box-shadow: 0 0 15px rgba(248, 113, 113, 0.2);
+}
+
+.suggestions {
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.suggestions button {
+    flex: 1 1 180px;
+    background: rgba(99, 102, 241, 0.08);
+    color: var(--text);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.suggestions button:hover {
+    background: rgba(99, 102, 241, 0.18);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 12px;
+        align-items: stretch;
+    }
+
+    .app-shell {
+        padding: 20px 16px;
+        border-radius: 20px;
+    }
+
+    .toolbar,
+    .composer {
+        flex-direction: column;
+    }
+
+    .bubble {
+        max-width: 88%;
+    }
+}

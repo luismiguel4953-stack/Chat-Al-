@@ -1,0 +1,18 @@
+{
+  "short_name": "LM Chat AI",
+  "name": "LM Chat AI Assistant",
+  "icons": [
+    {
+      "src": "/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#06060b",
+  "theme_color": "#6366f1",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "LM Chat AI: Asistente de inteligencia artificial conversacional con soporte multimodelo e historial local."
+}
